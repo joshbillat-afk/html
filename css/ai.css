@@ -1,0 +1,92 @@
+/* General Page Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background-color: #f9fbf9; /* Very light mint/grey */
+}
+
+/* Header Styles */
+h1 {
+    color: #2d5a27; /* Deep forest green */
+    border-bottom: 2px solid #2d5a27;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+h2 {
+    color: #c45b25; /* Terracotta/Zion Orange */
+    margin-top: 30px;
+}
+
+/* List Styling */
+ul, ol {
+    background-color: #fff;
+    padding: 20px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+/* Using your specific class */
+.emphasizedText {
+    font-weight: bold;
+    color: #2d5a27;
+    background-color: #e8f5e9;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* Link Styling */
+a {
+    color: #c45b25;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #2d5a27;
+    text-decoration: underline;
+}
+
+/* Image Styling */
+img {
+    display: block;
+    margin: 20px 0;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    border: 5px solid #fff;
+    max-width: 100%; /* Responsive */
+}
+
+/* Quote Styling */
+p i, p:has(+ img) {
+    font-style: italic;
+    color: #555;
+    background: #f0f0f0;
+    padding: 15px;
+    border-left: 5px solid #c45b25;
+    margin: 20px 0;
+}
+
+/* Caption for the image */
+p:nth-of-type(2) {
+    font-size: 0.9rem;
+    color: #777;
+    text-align: center;
+    margin-top: -10px;
+}
+
+/* Smooth Scrolling for the 'Return to Top' link */
+html {
+    scroll-behavior: smooth;
+}
