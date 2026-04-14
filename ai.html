@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Powerlifting Toolkit</title>
+    <style>
+        :root {
+            --bg-color: #f4f4f9;
+            --text-color: #333;
+            --bar-color: #bdc3c7;
+            --primary-color: #2c3e50;
+            --accent-color: #e74c3c;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 20px 40px; /* Increased top padding to make room for the back button */
+            margin: 0;
+            position: relative;
+        }
+
+        /* Back Button Styles */
+        /* Navigation Container */
+.nav-links {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    gap: 15px; /* Adjust this number to increase/decrease space between buttons */
+    z-index: 10; /* Ensures buttons stay clickable on top of other elements */
+}
+
+/* Back Button Styles */
+.back-btn {
+    text-decoration: none;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.back-btn:hover {
+    background-color: #1a252f;
+    transform: translateY(-2px); /* Gives a slight 'lift' effect when hovered */
+}
+
+        .back-btn:hover {
+            background-color: #1a252f;
+        }
+
+        .header-text {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+
+        h2 { margin-top: 0; color: var(--primary-color); }
+
+        .input-group {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            width: 120px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: bold;
+        }
+
+        button:hover { background-color: #1a252f; }
+
+        .error { color: var(--accent-color); font-weight: bold; display: none; margin-top: 10px;}
+        .result-text { font-size: 20px; margin-top: 20px; font-weight: bold; color: var(--primary-color);}
+        
+        /* Barbell Visualizer Styles */
+        .visualizer {
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 150px;
+            position: relative;
+        }
+
+        .barbell-sleeve {
+            width: 250px;
+            height: 20px;
+            background-color: var(--bar-color);
+            border-radius: 2px;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .plates-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; 
+            width: 250px;
+            height: 100%;
+            position: absolute;
+            z-index: 2;
+            padding-right: 20px; 
+        }
+
+        .plate {
+            border-radius: 4px;
+            margin: 0 1px;
+            color: rgba(255,255,255,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            writing-mode: vertical-rl;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+        }
+
+        /* Standard Plate Colors */
+        .p-45 { height: 130px; width: 24px; background-color: #c0392b; } 
+        .p-35 { height: 110px; width: 22px; background-color: #2980b9; } 
+        .p-25 { height: 90px; width: 20px; background-color: #f1c40f; color: #333;} 
+        .p-10 { height: 70px; width: 16px; background-color: #27ae60; } 
+        .p-5  { height: 50px; width: 14px; background-color: #34495e; } 
+        .p-2_5{ height: 40px; width: 12px; background-color: #95a5a6; color: #333;} 
+
+        /* 1RM Table Styles */
+        .percentage-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            display: none;
+        }
+        
+        .percentage-table th, .percentage-table td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .percentage-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="nav-links">
+    <a href="index.html" class="back-btn">Home Page</a>
+    <a href="fromScratch.html" class="back-btn">Structures Page</a>
+    </div>
+
+    <div class="header-text">
+        <h1>🏋️ Powerlifting Toolkit</h1>
+        <p>Calculate your max and visualize your plate math for your next training block.</p>
+    </div>
+
+    <div class="container">
+        <h2>1-Rep Max Calculator</h2>
+        <p>Estimate your 1RM and generate your training percentages.</p>
+        
+        <div class="input-group">
+            <input type="number" id="liftWeight" placeholder="Weight (lbs)" min="1">
+            <input type="number" id="liftReps" placeholder="Reps" min="1" max="30">
+            <button onclick="calculate1RM()">Calculate Max</button>
+        </div>
+        
+        <div id="rmError" class="error">Please enter valid weight and reps.</div>
+        <div id="rmResult" class="result-text"></div>
+
+        <table class="percentage-table" id="percentTable">
+            <thead>
+                <tr>
+                    <th>% of 1RM</th>
+                    <th>Target Weight (lbs)</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                </tbody>
+        </table>
+    </div>
+
+    <div class="container">
+        <h2>Plate Visualizer</h2>
+        <p>Enter your target weight to see how to load the bar.</p>
+        
+        <div class="input-group">
+            <input type="number" id="weightInput" placeholder="e.g., 315" step="5" min="45">
+            <button onclick="calculatePlates()">Load Bar</button>
+        </div>
+        
+        <div id="plateError" class="error">Weight must be at least 45lbs and a multiple of 5.</div>
+        <div id="plateResult" class="result-text"></div>
+
+        <div class="visualizer">
+            <div class="barbell-sleeve"></div>
+            <div class="plates-container" id="platesContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1-REP MAX LOGIC ---
+        function calculate1RM() {
+            const weight = parseFloat(document.getElementById('liftWeight').value);
+            const reps = parseInt(document.getElementById('liftReps').value);
+            const errorMsg = document.getElementById('rmError');
+            const resultText = document.getElementById('rmResult');
+            const table = document.getElementById('percentTable');
+            const tableBody = document.getElementById('tableBody');
+
+            errorMsg.style.display = 'none';
+            table.style.display = 'none';
+            resultText.innerText = '';
+            tableBody.innerHTML = '';
+
+            if (isNaN(weight) || isNaN(reps) || weight <= 0 || reps <= 0) {
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            // Epley Formula for 1RM estimation
+            let oneRepMax = reps === 1 ? weight : Math.round(weight * (1 + (reps / 30)));
+            resultText.innerText = `Estimated 1RM: ${oneRepMax} lbs`;
+
+            // Generate Percentages
+            const percentages = [95, 90, 85, 80, 75, 70, 65];
+            percentages.forEach(percent => {
+                let targetWeight = Math.round((oneRepMax * (percent / 100)) / 5) * 5; // Rounds to nearest 5lbs
+                let row = `<tr><td>${percent}%</td><td>${targetWeight} lbs</td></tr>`;
+                tableBody.innerHTML += row;
+            });
+
+            table.style.display = 'table';
+        }
+
+        // --- PLATE MATH LOGIC ---
+        function calculatePlates() {
+            const input = document.getElementById('weightInput').value;
+            const weight = parseFloat(input);
+            const errorMsg = document.getElementById('plateError');
+            const container = document.getElementById('platesContainer');
+            const resultText = document.getElementById('plateResult');
+
+            container.innerHTML = '';
+            errorMsg.style.display = 'none';
+            resultText.innerText = '';
+
+            if (isNaN(weight) || weight < 45 || weight % 5 !== 0) {
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            let weightPerSide = (weight - 45) / 2;
+            const availablePlates = [45, 35, 25, 10, 5, 2.5];
+            const platesToLoad = [];
+
+            for (let plate of availablePlates) {
+                while (weightPerSide >= plate) {
+                    platesToLoad.push(plate);
+                    weightPerSide -= plate;
+                }
+            }
+
+            if (platesToLoad.length === 0) {
+                resultText.innerText = "Just the empty bar!";
+            } else {
+                resultText.innerText = `Plates per side: ${platesToLoad.join(', ')} lbs`;
+            }
+
+            platesToLoad.forEach(plate => {
+                const plateDiv = document.createElement('div');
+                const className = `p-${plate.toString().replace('.', '_')}`; 
+                
+                plateDiv.className = `plate ${className}`;
+                plateDiv.innerText = plate;
+                container.prepend(plateDiv); 
+            });
+        }
+    </script>
+</body>
+</html>
